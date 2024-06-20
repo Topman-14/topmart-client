@@ -1,5 +1,5 @@
 'use client'
-import { FC, use, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 interface CurrencyProps {
     value: string | number

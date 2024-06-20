@@ -3,6 +3,7 @@ import getProducts from '@/actions/get-products';
 import Billboard from '@/components/billboard'
 import ProductList from '@/components/product-list';
 import Container from '@/components/ui/container'
+import { ScrollArea } from '@/components/ui/scroll-area';
 import React from 'react'
 
 export const revalidate = 0;
