@@ -1,8 +1,11 @@
+'use client'
 import { Product } from '@/types'
 import React, { FC } from 'react'
 import Currency from './ui/currency'
 import Button from './ui/custom-button'
 import { ShoppingCart } from 'lucide-react'
+import useCart from '@/hooks/use-cart';
+
 
 interface InfoProps {
     data: Product
@@ -11,13 +14,17 @@ interface InfoProps {
 const Info: FC<InfoProps> = ({
     data
 }) => {
+
+  
+  const cart = useCart()
+
   return (
     <div>
       <h1 className='text-3xl font-bold text-gray-900'>{data.name}</h1>
       <div className="mt-3 items-end flex justify-between">
-        <p className='text-2xl text-green-800'>
+        <span className='text-2xl text-green-800'>
           <Currency value={data.price} />
-        </p>
+        </span>
       </div>
       <hr className="my-4" />
       <div className="flex flex-col gap-y-1">
@@ -35,7 +42,9 @@ const Info: FC<InfoProps> = ({
         </div>
       </div>
       <div className="mt-10 items-center flex gap-x-3">
-        <Button className='flex items-center gap-x-2'>
+        <Button 
+          onClick={() => cart.addItem(data)}
+          className='flex items-center gap-x-2'>
           Add to cart
           <ShoppingCart />
         </Button>
