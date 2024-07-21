@@ -4,7 +4,7 @@ import { Product } from "@/types"
 import Image from "next/image"
 import { FC } from "react"
 import IconButton from "./ui/icon-button"
-import { X } from "lucide-react"
+import { Minus, Plus, X } from "lucide-react"
 import Currency from "./ui/currency"
 import useCart from "@/hooks/use-cart"
 
@@ -20,6 +20,34 @@ const CartItem: FC<CartItemProps> = ({
     const removeItem = () => {
         cart.removeItem(data.id)
     }
+
+    const qtyInCart = cart.items.find((product) => product.id === data.id)?.quantity;
+
+    const qtyPicker = (
+        <div className="flex items-center gap-x-2 rounded-3xl border py-2 px-3 w-fit text-sm">
+            <IconButton
+                className="p-1 rounded-md"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    cart.decreaseQty(data.id);
+                }}
+                icon={<Minus size="15" />}
+            />
+            <p className="font-semibold">
+              {qtyInCart + ' '}
+            </p>
+            <IconButton
+                className="p-1 rounded-md"
+                disabled={data.quantity === qtyInCart}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    cart.increaseQty(data.id);
+                }}
+                icon={<Plus size="15" />}
+            />
+        </div>
+      )
+
   return (
    <li className="flex py-6 border-b">
         <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
@@ -27,7 +55,7 @@ const CartItem: FC<CartItemProps> = ({
                 fill
                 src={data.images[0].url}
                 alt={data.name}
-                className="object-cover object-center"
+                className="object-cover object-center border rounded-xl"
             />
         </div>
         <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
@@ -46,7 +74,10 @@ const CartItem: FC<CartItemProps> = ({
                         {data.size.name}
                     </p>
                 </div>
-                <Currency value={data.price} />
+                <div className="mt-2 flex items-center gap-2 sm:flex-col sm:items-start sm:gap-4 flex-wrap">
+                    <Currency value={data.price} />
+                    {qtyPicker}
+                </div>
             </div>
         </div>
    </li>

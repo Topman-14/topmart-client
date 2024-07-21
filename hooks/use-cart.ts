@@ -5,6 +5,7 @@ import { Product } from "@/types";
 
 interface CartProduct extends Product {
     quantity: number;
+    stock: number;
 }
 
 interface CartStore {
@@ -26,8 +27,15 @@ const useCart = create(
             if (existingItem) {
                 toast.error("Item already in cart");
             } else {
+                const stock = data.quantity;
                 set({
-                    items: [...get().items, { ...data, quantity }],
+                    items: [
+                        ...get().items,
+                         { 
+                            ...data, 
+                            stock,
+                            quantity, 
+                        }],
                 });
                 toast.success("Item added to cart");
             }
@@ -42,12 +50,16 @@ const useCart = create(
             const currentItems = get().items;
             const item = currentItems.find((item) => item.id === id);
             if (item) {
+                if (item?.stock === item.quantity ) {
+                    toast.error("You can't add more items than available in stock");
+                    return;
+                }
                 set({
                     items: currentItems.map((item) =>
                         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
                     ),
                 });
-                toast.success("Item quantity increased");
+                toast.success(`Cart updated`);
             }
         },
         decreaseQty: (id: string) => {
@@ -59,7 +71,7 @@ const useCart = create(
                         item.id === id ? { ...item, quantity: item.quantity - 1 } : item
                     ),
                 });
-                toast.success("Item quantity decreased");
+                toast.success("Cart updated");
             } else if (item) {
                 get().removeItem(id);
             }

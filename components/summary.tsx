@@ -17,6 +17,9 @@ const Summary:FC<SummaryProps> = () => {
 
     const items = useCart((state) => state.items)
     const removeAll = useCart((state) => state.removeAll)
+    const cart = useCart()
+
+    console.log(cart.items)
 
     useEffect(() => {
         if(searchParams.get('success')) {

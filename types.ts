@@ -20,6 +20,7 @@ export interface Product {
     size: Size;
     color: Color;
     images: Image[];
+    description?: string;
 }
 
 export interface Image {

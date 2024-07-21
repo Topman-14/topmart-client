@@ -9,7 +9,9 @@ const Providers = ({
     children: React.ReactNode
 }) => {
   return (
-    <TooltipProvider>
+    <TooltipProvider
+      delayDuration={900}
+    >
         <ModalProvider />
         <ToastProvider />
         <NextTopLoader showSpinner={false} height={2} color="#ff5811"/>
