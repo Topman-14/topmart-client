@@ -60,14 +60,17 @@ const ProductCard: FC<ProductCardProps> = ({
             </div>
         </div>
         <div>
-            <p className="font-semibold text-lg">
+            <p className="font-semibold text-lg leading-snug">
                 {data.name}
             </p>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm mt-1">
                 {data.category.name}
             </p>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-[-15px]">
+            {data?.quantity > 1 &&
+                <p className="font-semibold p-1 text-sm rounded-md text-white bg-black px-2">{data?.quantity} left</p>
+            }
             <Currency value={data?.price} />
         </div>
     </div>

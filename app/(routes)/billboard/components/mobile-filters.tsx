@@ -1,7 +1,7 @@
 'use client'
 import Button from "@/components/ui/custom-button";
 import IconButton from "@/components/ui/icon-button";
-import { Color, Size } from "@/types";
+import { Category, Color, Size } from "@/types";
 import { Dialog } from "@headlessui/react";
 import { Plus, X } from "lucide-react";
 import { FC, useState } from "react";
@@ -10,11 +10,13 @@ import Filter from "./filter";
 interface MobileFiltersProps {
     sizes: Size[];
     colors: Color[];
+    categories: Category[];
 }
 
 const MobileFilters:FC<MobileFiltersProps> = ({
     sizes,
-    colors
+    colors,
+    categories
 }) => {
     const [open, setOpen] = useState(false)
 
@@ -50,6 +52,12 @@ const MobileFilters:FC<MobileFiltersProps> = ({
                             valueKey="colorId"
                             name="Colors"
                             data={colors}
+                            onClickClose={onClose}
+                         />
+                        <Filter
+                            valueKey="categoryId"
+                            name="Categories"
+                            data={categories}
                             onClickClose={onClose}
                          />
                         </div>

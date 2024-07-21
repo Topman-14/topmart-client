@@ -28,11 +28,11 @@ const Summary:FC<SummaryProps> = () => {
         }
     }, [searchParams, removeAll])
 
-    const totalPrice = items.reduce((acc, item) => acc + Number(item.price), 0)
+    const totalPrice = items.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0)
 
     const onCheckout = async () => {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-            productIds: items.map((item) => item.id)
+            products: items.map((item) => ({ id: item.id, quantity: item.quantity }))
         })
 
         window.location = response.data.url

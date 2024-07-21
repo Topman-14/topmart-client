@@ -16,8 +16,8 @@ const Gallery: FC<GalleryProps> = ({
 }) => {
   return (
     <Tab.Group as="div" className={'flex flex-col-reverse'}>
-        <div className='mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none'>
-            <Tab.List className={"grid grid-cols-4 gap-6"}>
+        <div className='mx-auto mt-4 hidden w-full max-w-2xl sm:block lg:max-w-none'>
+            <Tab.List className={"grid grid-cols-4 gap-3"}>
                 {images.map(image => (
                     <GalleryTab key={image.id} image={image} />
                 ))}
@@ -31,7 +31,7 @@ const Gallery: FC<GalleryProps> = ({
                             src={image.url}
                             alt={'product image'}
                             fill
-                            className='object-cover object-center rounded-2xl border-2'
+                            className='object-cover object-center rounded-2xl border-2 border-gray-100'
                         />
                     </div>
                 </Tab.Panel>
