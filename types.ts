@@ -21,6 +21,7 @@ export interface Product {
     color: Color;
     images: Image[];
     description?: string;
+    stock?: number;
 }
 
 export interface Image {

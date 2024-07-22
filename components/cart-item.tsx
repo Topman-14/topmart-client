@@ -38,7 +38,7 @@ const CartItem: FC<CartItemProps> = ({
             </p>
             <IconButton
                 className="p-1 rounded-md"
-                disabled={data.quantity === qtyInCart}
+                disabled={data.stock === qtyInCart}
                 onClick={(e) => {
                     e.stopPropagation();
                     cart.increaseQty(data.id);
