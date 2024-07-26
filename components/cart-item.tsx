@@ -2,18 +2,20 @@
 
 import { Product } from "@/types"
 import Image from "next/image"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import IconButton from "./ui/icon-button"
 import { Minus, Plus, X } from "lucide-react"
 import Currency from "./ui/currency"
 import useCart from "@/hooks/use-cart"
 
 interface CartItemProps {
-    data: Product
+    data: Product;
+    stock: {id: string, stock: number}; //I need to name this stuff better
 }
 
 const CartItem: FC<CartItemProps> = ({
-    data
+    data,
+    stock
 }) => {
     const cart = useCart()
 
@@ -22,6 +24,12 @@ const CartItem: FC<CartItemProps> = ({
     }
 
     const qtyInCart = cart.items.find((product) => product.id === data.id)?.quantity;
+
+    useEffect(()=>{
+        if((stock.stock) < (qtyInCart || 0)){
+            cart.setQty(data.id, stock.stock)
+        }
+    }, [stock.stock, qtyInCart])
 
     const qtyPicker = (
         <div className="flex items-center gap-x-2 rounded-3xl border py-2 px-3 w-fit text-sm">
@@ -38,7 +46,7 @@ const CartItem: FC<CartItemProps> = ({
             </p>
             <IconButton
                 className="p-1 rounded-md"
-                disabled={data.stock === qtyInCart}
+                disabled={stock?.stock === qtyInCart}
                 onClick={(e) => {
                     e.stopPropagation();
                     cart.increaseQty(data.id);

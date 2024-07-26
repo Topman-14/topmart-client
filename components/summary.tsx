@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation'
 import { HandCoins } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { createOrder, fufillOrder } from '@/actions/paystack'
+import { LoadingButton } from './ui/loader-button'
 
 const formSchema = z.object({
     name: z.string().min(1, 'required'),
@@ -30,21 +31,13 @@ type PaymentFormValues = z.infer<typeof formSchema>;
 
 const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '';
 
-const onSuccess = (reference: string) => {
-   fufillOrder(reference)
-}
-
-const onClose = () => {
-   toast.error('Payment cancelled!');
-}
 
 const Summary = () => {
-
     const items = useCart((state) => state.items)
-    const removeAll = useCart((state) => state.removeAll)
     const cart = useCart()
     const router = useRouter()
     const [showCheckout, setShowCheckout] = useState(false)
+    const [orderLoading, setOrderLoading] = useState(false)
 
     const totalPrice = items.reduce((acc, item) => acc + Number(item.price) * item.quantity, 0);
 
@@ -58,23 +51,42 @@ const Summary = () => {
         },
     });
 
-    const [paymentDetails, setPaymentDetails] = useState<any>({
+    const onSuccess = async(reference: string) => {
+        try{
+            const response = await fufillOrder(reference)
+            toast.success('Order Successful!')
+            cart.removeAll()
+            router.push('/')
+            router.refresh()
+        } catch(e) {
+            console.error(e)
+        } finally{
+            setOrderLoading(false)
+        }
+
+    }
+    
+    const onClose = () => {
+        toast.error('Payment cancelled!');
+        setOrderLoading(false)
+    }
+
+
+    const initializePayment = usePaystackPayment({
         email: '',
         publicKey,
         metadata: {
-            custom_fields: [
+        custom_fields: [
             ]
-          },
-    })
-
-    const initializePayment = usePaystackPayment(paymentDetails);
+        },
+    });
 
     const onSubmit = async (data: PaymentFormValues) => {
-        console.log(data)
-        setPaymentDetails({
-            ...paymentDetails,
+
+        const updatedPaymentDetails = {
             email: data.email,
             amount: totalPrice * 100,
+            publicKey,
             metadata: {
                 custom_fields: [
                     {
@@ -94,16 +106,17 @@ const Summary = () => {
                     }
                 ]
             }
-        })
-        try {
-            const order = await createOrder(items,  data)
+        };
+        setOrderLoading(true)
+        const order = await createOrder(items, data);
+        if(order){
             initializePayment({
                 onSuccess: () => onSuccess(order.id),
-                onClose
-            })
-        } catch (error) {
-            toast.error('Something went wrong!')
-            console.error(error)
+                onClose,
+                config: updatedPaymentDetails
+            });
+        } else {
+            setOrderLoading(false)
         }
     }
 
@@ -120,84 +133,93 @@ const Summary = () => {
                     <Currency value={totalPrice} />
                 </div>
             </div>
-            {!showCheckout && 
+            {!showCheckout &&
                 <Tooltip>
                     <TooltipTrigger asChild>
-                    <Button 
-                        className={'w-full mt-6 flex items-center justify-center gap-2'} 
-                        disabled={items.length === 0}
-                        onClick={()=> setShowCheckout(true)}
+                        <Button
+                            className={'w-full mt-6 flex items-center justify-center gap-2'}
+                            disabled={items.length === 0}
+                            onClick={() => setShowCheckout(true)}
                         >
-                        <Image src={PaystackLogo} alt="Paystack" width={20} height={20} />
-                        Paystack Checkout
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent side='bottom'>
-                    We&apos;ll need your order details here
-                </TooltipContent>
+                            <Image src={PaystackLogo} alt="Paystack" width={20} height={20} />
+                            Paystack Checkout
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side='bottom'>
+                        We&apos;ll need your order details here
+                    </TooltipContent>
                 </Tooltip>
             }
-            {showCheckout && 
+            {showCheckout &&
                 <Form {...form}>
                     <h3 className='mt-6 font-semibold'>Order details</h3>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 grid md:grid-cols-2 md:p-4 md:border rounded-2xl gap-2 md:gap-4 animate-in zoom-in-95 fade-in-15">
-                        <FormField 
-                            control={form.control} 
+                        <FormField
+                            control={form.control}
                             name="name"
-                            render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Full Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="John Doe" {...field}/>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>)}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Full Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="John Doe" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <FormField 
-                            control={form.control} 
+                        <FormField
+                            control={form.control}
                             name="email"
-                            render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="email@example.com" {...field}/>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>)}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="email@example.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <FormField 
-                            control={form.control} 
+                        <FormField
+                            control={form.control}
                             name="phone"
-                            render={({field}) => (
-                            <FormItem className='lg:col-span-2'>
-                                <FormLabel>Phone</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="+234 712 345 6789" {...field}/>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>)}
+                            render={({ field }) => (
+                                <FormItem className='lg:col-span-2'>
+                                    <FormLabel>Phone</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="+234 712 345 6789" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <FormField 
-                            control={form.control} 
+                        <FormField
+                            control={form.control}
                             name="address"
-                            render={({field}) => (
-                            <FormItem className='lg:col-span-2'>
-                                <FormLabel>Pickup Address</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="5, John Doe Street, Lekki, Lagos, Nigeria" {...field}/>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>)}
+                            render={({ field }) => (
+                                <FormItem className='lg:col-span-2'>
+                                    <FormLabel>Pickup Address</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="5, John Doe Street, Lekki, Lagos, Nigeria" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
                     </form>
-                    <Button 
+                    <LoadingButton
                         onClick={form.handleSubmit(onSubmit)}
-                        className={'w-full mt-6 flex items-center justify-center gap-2'} 
+                        loading={orderLoading}
+                        className={'w-full mt-6 flex items-center justify-center gap-2 rounded-full py-4'}
                         type="submit"
                     >
-                        <HandCoins />
-                        Pay Now
-                    </Button>
+                        {!orderLoading ? 
+                        <>
+                            <HandCoins />
+                            Pay Now
+                        </> : <p className="font-semibold">Loading</p>
+                        }
+                    </LoadingButton>
                 </Form>
             }
         </div>

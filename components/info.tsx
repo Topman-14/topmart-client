@@ -60,7 +60,7 @@ const Info: FC<InfoProps> = ({
 
   return (
     <div>
-      <h1 className='text-3xl font-bold text-gray-900'>{data.name}</h1>
+      <h1 className={`text-3xl font-bold text-gray-900 ${isProductPage? ' sm:hidden md:block ' : ''}`}>{data.name}</h1>
       <div className="mt-3 items-end flex justify-between">
         <span className='flex items-center gap-2 justify-between w-full'>
           {data.quantity > 0 ? inventoryLeft : outOfStock}

@@ -1,36 +1,24 @@
-"use client";
-import CartItem from '@/components/cart-item';
-import Summary from '@/components/summary';
 import Container from '@/components/ui/container';
-import useCart from '@/hooks/use-cart';
-import { FC, Suspense } from 'react'
+import CartClient from './components/cart-client';
+import getProducts from '@/actions/get-products';
 
-interface CartPageProps {
+export const revalidate = 600
 
-}
+const CartPage = async () => {
 
-const CartPage:FC<CartPageProps> = () => {
+    const products = await getProducts({})
 
-    const cart = useCart()
+    const currentStocks = products.map(product => (
+        {
+            id: product.id,
+            stock: product.quantity
+        }))
 
     return (
         <div className="bg-white">
             <Container>
                 <div className="px-4 py-16 sm:px-6 lg:px-8">
-                    <h1 className='text-3xl font-bold text-black'>Shopping Cart ({cart.items.length})</h1>
-                    <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
-                        <div className="lg:col-span-7">
-                            {cart.items.length === 0 && <p className='text-neutral-500'>No Items added to cart</p>}
-                            <ul>
-                                {cart.items.map((items) => (
-                                    <CartItem key={items.id} data={items} />
-                                ))}
-                            </ul>
-                        </div>
-                        <Suspense>
-                            <Summary />
-                        </Suspense>
-                    </div>
+                    <CartClient stocks={currentStocks} />
                 </div>
             </Container>
         </div>

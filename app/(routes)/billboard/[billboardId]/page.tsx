@@ -12,8 +12,7 @@ import getCategories from "@/actions/get-categories";
 import getBillboard from "@/actions/get-billboard";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0;
-
+export const revalidate = 600
 interface CategoryPageProps {
     params: {
         billboardId: string

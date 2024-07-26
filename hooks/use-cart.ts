@@ -14,6 +14,7 @@ interface CartStore {
     removeItem: (id: string) => void;
     increaseQty: (id: string) => void;
     decreaseQty: (id: string) => void;
+    setQty: (id: string, newQty:number) => void;
     removeAll: () => void;
 }
 
@@ -50,10 +51,6 @@ const useCart = create(
             const currentItems = get().items;
             const item = currentItems.find((item) => item.id === id);
             if (item) {
-                if (item?.stock === item.quantity ) {
-                    toast.error("You can't add more items than available in stock");
-                    return;
-                }
                 set({
                     items: currentItems.map((item) =>
                         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
@@ -76,9 +73,21 @@ const useCart = create(
                 get().removeItem(id);
             }
         },
+        setQty: (id: string, newQty: number) => {
+            const currentItems = get().items;
+            const item = currentItems.find((item) => item.id === id);
+            if (item && item.quantity > 1) {
+                set({
+                    items: currentItems.map((item) =>
+                        item.id === id ? { ...item, quantity: newQty} : item
+                    ),
+                });
+            } else if (item) {
+                get().removeItem(id);
+            }
+        },
         removeAll: () => {
             set({ items: [] });
-            toast.success("All items removed from cart");
         },
     }),
     {
