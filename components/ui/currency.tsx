@@ -8,7 +8,8 @@ interface CurrencyProps {
 export const currencyFormatter = new Intl.NumberFormat("en-NG", {
     style: 'currency',
     currency: 'NGN',
-    currencyDisplay: 'symbol'
+    currencyDisplay: 'symbol',
+    maximumFractionDigits: 0,
   });
 
 const Currency :FC<CurrencyProps> = ({
@@ -23,7 +24,7 @@ const Currency :FC<CurrencyProps> = ({
   if (!isMounted) return null;
 
   return (
-    <div className='font-semibold text-green-600'>
+    <div className='font-semibold text-lg text-green-600'>
         {currencyFormatter.format(Number(value))}
     </div>
   )

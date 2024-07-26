@@ -8,16 +8,20 @@ export interface Category {
     id: string;
     name: string;
     billboard: Billboard;
+    billboardId?: string;
 }
 export interface Product {
     id: string;
     name: string;
+    quantity: number;
     category: Category;
     price: string;
     isFeatured: boolean;
     size: Size;
     color: Color;
     images: Image[];
+    description?: string;
+    stock?: number;
 }
 
 export interface Image {

@@ -1,5 +1,4 @@
 import { FC } from "react";
-import getCategory from "@/actions/get-category";
 import getColors from "@/actions/get-colors";
 import getProducts from "@/actions/get-products";
 import getSizes from "@/actions/get-sizes";
@@ -9,16 +8,19 @@ import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
 import Filter from "../components/filter";
 import MobileFilters from "../components/mobile-filters";
+import getCategories from "@/actions/get-categories";
+import getBillboard from "@/actions/get-billboard";
+import { notFound } from "next/navigation";
 
-export const revalidate = 0;
-
+export const revalidate = 600
 interface CategoryPageProps {
     params: {
-        categoryId: string
+        billboardId: string
     },
     searchParams:{
         colorId: string;
         sizeId: string;
+        categoryId: string;
     }
 }
 
@@ -28,22 +30,29 @@ const CategoryPage:FC<CategoryPageProps> = async ({
 }) => {
 
     const products = await getProducts({
-        categoryId: params.categoryId,
+        billboardId: params.billboardId,
+        categoryId: searchParams.categoryId,
         colorId: searchParams.colorId,
         sizeId: searchParams.sizeId
     })
 
     const sizes = await getSizes();
     const colors = await getColors();
-    const category = await getCategory(params.categoryId);
+    const allCategories = await getCategories();
+    const categories = allCategories.filter(item => item.billboardId === params.billboardId)
+    const billboard = await getBillboard(params.billboardId);
+
+    if(!billboard){
+        notFound()
+    }
 
   return (
     <div className="bg-white">
         <Container>
-            <Billboard data={category.billboard} />
+            <Billboard data={billboard} />
             <div className="px-4 sm:px-6 lg:px-8 pb-24">
                 <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-                    <MobileFilters sizes={sizes} colors={colors} />
+                    <MobileFilters sizes={sizes} colors={colors} categories={categories} />
                     <div className="hidden lg:block">
                         <Filter
                             valueKey="sizeId"
@@ -54,6 +63,11 @@ const CategoryPage:FC<CategoryPageProps> = async ({
                             valueKey="colorId"
                             name="Colors"
                             data={colors}
+                         />
+                        <Filter
+                            valueKey="categoryId"
+                            name="Categories"
+                            data={categories}
                          />
                     </div>
                     <div className="mt-6 lg:col-span-4 lg:mt-0">

@@ -4,8 +4,9 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ModalProvider from "@/providers/modal-provider";
-import ToastProvider from "@/providers/toast-provider";
+import Providers from "@/providers";
+
+
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   description: "Your one-stop online marketplace",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_NG",
     url: "https://test",
     siteName: "Topmart",
   },
@@ -28,13 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <ScrollArea className='h-screen'> 
-          <ModalProvider />
-          <ToastProvider />
-          <Navbar />
-          {children}
-          <Footer />
-        </ScrollArea>
+        <Providers>
+          <ScrollArea className='h-screen'> 
+            <Navbar />
+            {children}
+            <Footer />
+          </ScrollArea>
+        </Providers>
       </body>
     </html>
   );

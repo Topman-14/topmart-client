@@ -9,7 +9,7 @@ import React from 'react'
 export const revalidate = 0;
 
 const HomePage = async () => {
-  const billboard = await getBillboard("fd0256b2-4889-4163-b96b-67da832ecf49");
+  const billboard = await getBillboard(process.env.NEXT_PUBLIC_BILLBOARD_ID as string);
 
   const products = await getProducts({ isFeatured: true})
 
