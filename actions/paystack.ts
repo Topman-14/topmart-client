@@ -1,10 +1,14 @@
+import { cleanUrl } from '@/lib/utils';
 import { Product } from '@/types'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
+const baseUrl = cleanUrl(apiUrl)
+
 export const createOrder = async (items: Product[], metadata: any) => {
     try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+        const response = await axios.post(`${apiUrl}/checkout`, {
             products: items.map((item) => ({ id: item.id, quantity: item.quantity })),
             metadata
         });
@@ -24,6 +28,6 @@ export const createOrder = async (items: Product[], metadata: any) => {
 }
 
 export const fufillOrder = async (orderId: string) => {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/webhook/paystack`, { orderId })
+    const response = await axios.post(`${baseUrl}webhook/paystack`, { orderId })
     return response.data
 }

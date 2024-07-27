@@ -83,11 +83,11 @@ const Info: FC<InfoProps> = ({
       }
       <hr className="my-4" />
       <div className="flex flex-col gap-y-1">
-        <div className="flex items-center gap-x-3">
+        <div className={`items-center gap-x-3 ${data.size? 'flex' : 'hidden'}`}>
           <h3 className="font-semibold text-black">Size:</h3>
           <div>{data?.size?.name}</div>
         </div>
-        <div className="flex items-center gap-x-3">
+        <div className={`items-center gap-x-3 ${data.color? 'flex' : 'hidden'}`}>
           <h3 className="font-semibold text-black">Color:</h3>
           <div className='flex gap-2 items-center'>
             <p>{data?.color?.name}</p>
