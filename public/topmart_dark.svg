@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Assembly 2.2 - http://assemblyapp.co -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2048.00" height="2048.00" viewBox="400 0 1600 2000">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2048.00" height="2048.00" viewBox="550 0 1200 2000">
     <circle cx="1150" cy="1024" r="604.0" fill="#ffffff"/>
     <g id="document" transform="matrix(0,1,1,0,1024.0,1024.0)">
         <path d="M-124.684,-140.601 C-124.684,-209.575 -180.394,-265.285 -249.368,-265.285 C-317.811,-265.285 -373.521,-209.575 -374.052,-141.132 C-373.521,-158.11 -359.726,-171.374 -342.748,-171.374 C-325.77,-171.374 -311.445,-157.579 -311.445,-140.07 C-311.445,-65.7907 -311.445,99.2166 -311.445,171.905 C-311.445,223.37 -269.53,265.285 -218.064,265.285 C-166.599,265.285 -124.684,223.37 -124.684,171.905 L-124.684,-140.601 Z " fill="#ff9500" fill-opacity="1.00" />

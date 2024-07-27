@@ -18,7 +18,7 @@ const Navbar = async () => {
           <div className='relative px-4 sm:px-6 lg:px-8 flex h-16 items-center gap-2'>
             <Link href={'/'} className='flex items-center'>
               <Logo />
-              <p className='font-bold text-xl'>Topmart</p>
+              <p className='font-bold text-xl ml-1'>Topmart</p>
             </Link>
             <MainNav data={billboards} />
             <NavbarActions />
