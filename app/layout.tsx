@@ -11,13 +11,41 @@ import Providers from "@/providers";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Topmart",
-  description: "Your one-stop online marketplace",
+  title: "Topmart Store",
+  description: "Your one-stop online store",
   openGraph: {
-    type: "website",
-    locale: "en_NG",
-    url: "https://test",
-    siteName: "Topmart",
+    title: 'Topmart Store',
+    description: 'Your one-stop online store',
+    url: 'https://topmart.vercel.app/',
+    siteName: 'Next.js',
+    images: [
+      {
+        url: 'https://topmart.vercel.app/opengraph-image.png', 
+        width: 800,
+        height: 600,
+      },
+      {
+        url: 'https://topmart.vercel.app/twitter-image.png',
+        width: 1800,
+        height: 1600,
+        alt: 'Twitter Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   }
 

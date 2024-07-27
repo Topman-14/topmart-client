@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from 'next'
 import getProduct from '@/actions/get-product'
 import getProducts from '@/actions/get-products'
 import Gallery from '@/components/gallery'
@@ -6,17 +7,30 @@ import ProductList from '@/components/product-list'
 import Container from '@/components/ui/container'
 import React, { FC } from 'react'
 
-
-// export const dynamic = 'force-dynamic'
-// export const revalidate = 0
-// export const dynamicParams = false
-
 export const revalidate = 600 //revalidate every 10mins
 interface ProductPageProps {
     params: {
         productId: string
     }
 }
+
+// export async function generateMetadata(
+//     { params }: ProductPageProps,
+//     parent: ResolvingMetadata
+//   ): Promise<Metadata> {
+   
+//     const product = await getProduct(params.productId)
+   
+//     const previousImages = (await parent).openGraph?.images || []
+   
+//     return {
+//       title: product.name,
+//       openGraph: {
+//         images: [...product.images, ...previousImages],
+//       },
+//     }
+//   }
+   
 
 const ProductPage: FC<ProductPageProps> = async ({
     params
