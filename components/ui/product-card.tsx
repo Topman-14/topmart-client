@@ -41,7 +41,7 @@ const ProductCard: FC<ProductCardProps> = ({
     const qtyInCart = cart.items.find((product) => product.id === data.id)?.quantity;
 
     const inventoryLeft = (
-        <p className="font-semibold p-1 text-sm rounded-md text-white bg-gray-500 px-2">{data?.quantity} left</p>
+        <p className="font-semibold p-1 text-sm rounded-md text-white bg-gray-500 px-2">{data?.quantity} items</p>
     )
 
     const outOfStock = (
@@ -97,7 +97,7 @@ const ProductCard: FC<ProductCardProps> = ({
             </div>
         </div>
         <div>
-            <p className="font-semibold text-lg leading-snug">
+            <p className="font-semibold text-lg leading-snug truncate" title={data.name}>
                 {data.name}
             </p>
             <p className="text-gray-500 text-sm mt-1">
