@@ -11,6 +11,7 @@ import Providers from "@/providers";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://topmart.vercel.app/'),
   title: "Topmart Store",
   description: "Your one-stop online store",
   openGraph: {

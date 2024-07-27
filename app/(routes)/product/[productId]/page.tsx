@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next'
+// import { Metadata, ResolvingMetadata } from 'next'
 import getProduct from '@/actions/get-product'
 import getProducts from '@/actions/get-products'
 import Gallery from '@/components/gallery'
