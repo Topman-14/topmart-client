@@ -35,7 +35,7 @@ Topmart is split into two primary components:
 This means that for this specific scenario, **product data cannot be stored on the client** whether localstorage or indexedDb. Thankfully the requirements didn't explicitly state that I should not use a remote DB, so I built an API alongside the Admin dashboard using NextJs. The persistence layer is a MongoDB database hosted with mongoDB atlas, my ORM of choice is Prisma. I built this NextJS storefront separately so I'd require the minimum env credentials if you were to set up locally. Just the public API endpoint and the Paystack test Key.
 
 ## Live Demo
-You can check out the storefront at [https://topmart.vercel.app](https://topmart.vercel.app) if you would like to manage the products on the live store, check out the admin dashboard at [https://topmart-admin.vercel.app](https://topmart-admin.vercel.app) and sign in with these credentials:
+You can check out the storefront at [https://topmart.vercel.app](https://topmart.vercel.app) . <br /> If you would like to manage the products on the live store, check out the admin dashboard at [https://topmart-admin.vercel.app](https://topmart-admin.vercel.app) and sign in with these credentials:
 
   - email: topman.portfolio@gmail.com
   - password: #1@Password$
