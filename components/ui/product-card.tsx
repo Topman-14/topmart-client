@@ -79,8 +79,9 @@ const ProductCard: FC<ProductCardProps> = ({
             <Image
                 src={data?.images?.[0]?.url}
                 fill
+                sizes={"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                 alt="Product image"
-                className="object-cover rounded-lg aspect-square"
+                className="object-cover rounded-lg aspect-square border"
             />
             <div className="opacity-0 group-hover:opacity-100 transition w-full absolute px-6 bottom-5">
                 <div className="flex gap-x-6 justify-center">

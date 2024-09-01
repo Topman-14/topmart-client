@@ -1,10 +1,10 @@
-// import { Metadata, ResolvingMetadata } from 'next'
 import getProduct from '@/actions/get-product'
 import getProducts from '@/actions/get-products'
 import Gallery from '@/components/gallery'
 import Info from '@/components/info'
 import ProductList from '@/components/product-list'
 import Container from '@/components/ui/container'
+import { Metadata } from 'next'
 import React, { FC } from 'react'
 
 export const revalidate = 600 //revalidate every 10mins
@@ -14,23 +14,34 @@ interface ProductPageProps {
     }
 }
 
-// export async function generateMetadata(
-//     { params }: ProductPageProps,
-//     parent: ResolvingMetadata
-//   ): Promise<Metadata> {
-   
-//     const product = await getProduct(params.productId)
-   
-//     const previousImages = (await parent).openGraph?.images || []
-   
-//     return {
-//       title: product.name,
-//       openGraph: {
-//         images: [...product.images, ...previousImages],
-//       },
-//     }
-//   }
-   
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+    const product = await getProduct(params.productId);
+  
+    if (!product) {
+      return {
+        title: 'Product not found - Topmart Store',
+        description: 'The product you are looking for could not be found on Topmart Store.',
+      };
+    }
+  
+    return {
+      title: `${product.name} - Topmart Store`,
+      description: `Buy ${product.name} on Topmart Store. ${product.description || "Discover high-quality products at the best prices."}`,
+      keywords: `${product.name}, ${product.category?.name || ''}, ${product.size?.name || ''}, ${product.color?.name || ''}, online shopping, nigeria, buy ${product.name}`,
+      openGraph: {
+        title: `${product.name} - Topmart Store`,
+        description: `Buy ${product.name} on Topmart Store. ${product.description || "Discover high-quality products at the best prices."}`,
+        url: `https://topmart.vercel.app/product/${params.productId}`,
+        images: product.images.map((image) => ({
+          url: image.url,
+          width: 800,
+          height: 600,
+          alt: product.name,
+        })),
+      },
+    };
+  }
+
 
 const ProductPage: FC<ProductPageProps> = async ({
     params
