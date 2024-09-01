@@ -11,6 +11,7 @@ import MobileFilters from "../components/mobile-filters";
 import getCategories from "@/actions/get-categories";
 import getBillboard from "@/actions/get-billboard";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export const revalidate = 600
 interface CategoryPageProps {
@@ -23,6 +24,49 @@ interface CategoryPageProps {
         categoryId: string;
     }
 }
+
+export async function generateMetadata({ params, searchParams }: CategoryPageProps): Promise<Metadata> {
+    const { categoryId, colorId, sizeId } = searchParams;
+    const { billboardId } = params;
+
+    const sizes = await getSizes();
+    const colors = await getColors();
+  
+    const billboard = await getBillboard(billboardId);
+    const allCategories = await getCategories();
+    const category = allCategories.find(item => item.id === categoryId);
+  
+    if (!billboard) {
+      return {
+        title: 'Topmart Store - Categories',
+        description: 'Explore various categories of products on Topmart Store.',
+      };
+    }
+  
+    return {
+      title: `${billboard.label} Products - Topmart Store`,
+      description: `Discover the best products in the ${billboard.label} category. Explore a wide range of options in various colors and sizes.`,
+      keywords: `${category?.name ?? "all categories"}, ${billboard.label}, online, shopping, ${colorId ? colors?.find(color => color.id === colorId)?.name : 'all colors'}, ${sizeId ? sizes?.find(size => size.id === sizeId)?.name : 'all sizes'}`,
+      openGraph: {
+        title: `${billboard.label} - Topmart Store`,
+        description: `Discover the best products in ${billboard.label} at Topmart Store.`,
+        url: `https://topmart.vercel.app/categories/${billboardId}?categoryId=${categoryId}&colorId=${colorId}&sizeId=${sizeId}`,
+        images: [
+          {
+            url: billboard.imageUrl,
+            width: 800,
+            height: 600,
+          },
+          {
+            url: 'https://topmart.vercel.app/opengraph-image.png',
+            width: 800,
+            height: 600,
+          },
+        ],
+        type: 'website',
+      },
+    };
+  }
 
 const CategoryPage:FC<CategoryPageProps> = async ({
     params,

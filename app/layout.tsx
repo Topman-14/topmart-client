@@ -14,11 +14,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://topmart.vercel.app/'),
   title: "Topmart Store",
   description: "Your one-stop online store",
+  keywords: "online, store, shopping, electronics, fashion, home, goods, Topmart, yaba, mandilas, lagos, thrift, iphone, lambo",
   openGraph: {
     title: 'Topmart Store',
     description: 'Your one-stop online store',
     url: 'https://topmart.vercel.app/',
-    siteName: 'Next.js',
+    siteName: 'Topmart Store',
     images: [
       {
         url: 'https://topmart.vercel.app/opengraph-image.png', 
