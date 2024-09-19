@@ -24,15 +24,15 @@ Topmart is split into two primary components:
 - **Product Management**: Users can add, edit, and delete products in real-time. All changes are immediately reflected on the storefront.
 - **SEO Optimization**: Comprehensive SEO strategies are implemented, including meta tags, dynamic metadata generation, and a sitemap.
 - **Server side Rendering**: I used React Server Components in the latest version of NextJS as of today- V14.2 (01-09-2024) Server-side rendering (SSR), and static site generation (SSG) are implemented differently in the app router than the pages router. `getStaticProps` and `getServerSideProps` are now deprecated.
-- **Payment Integration**: Paystack is integrated as the payment gateway to facilitate secure transactions. This was totally not necessary, but I personally wanted a comprehensive product checkout flow for this app.
+- **Payment Integration**: Paystack is integrated as the payment gateway to facilitate secure transactions.
   ![image](https://github.com/user-attachments/assets/e0cdae79-2232-4b25-a46a-6a3d07eaed7d)
 
 
-- **Integration with my NextJS products API**: Although the in the requirements file I noticed I didn't need to store my products on a remote db, I wanted to demonstrate my proficiency with Server Side Rendering by dynamically pre-rendering each page content on the server before sending it to the client as per the assesment criteria.
+- **Integration with my NextJS products API**: I wanted to demonstrate my proficiency with Server Side Rendering by dynamically pre-rendering each page content on the server before sending it to the client as well as the SEO tags.
 
 <br />
 
-This means that for this specific scenario, **product data cannot be stored on the client** whether localstorage or indexedDb. Thankfully the requirements didn't explicitly state that I should not use a remote DB, so I built an API alongside the Admin dashboard using NextJs. The persistence layer is a MongoDB database hosted with mongoDB atlas, my ORM of choice is Prisma. I built this NextJS storefront separately so I'd require the minimum env credentials if you were to set up locally. Just the public API endpoint and the Paystack test Key.
+I built an API alongside the Admin dashboard using NextJs. The persistence layer is a MongoDB database hosted with mongoDB atlas, my ORM of choice is Prisma. I built this NextJS storefront separately so I'd require the minimum env credentials if you were to set up locally. Just the public API endpoint and the Paystack test Key.
 
 ## Live Demo
 You can check out the storefront at [https://topmart.vercel.app](https://topmart.vercel.app) . <br /> If you would like to manage the products on the live store, check out the admin dashboard at [https://topmart-admin.vercel.app](https://topmart-admin.vercel.app) and sign in with these credentials:
@@ -82,7 +82,7 @@ To run Topmart locally, follow these steps:
    npm start
    ```
 
-## Design Decisions, Optimizations, and Trade-offs
+## Design Decisions and Optimizations
 
 ### Design Decisions
 
@@ -93,10 +93,6 @@ To run Topmart locally, follow these steps:
 - **SEO**: A dynamic SEO strategy was implemented using Next.js 14.2's App Router. Metadata objects and the `generateMetadata` function were used to provide detailed SEO data for each page, improving search engine visibility. A sitemap and robots.txt file were also included to guide search engine crawlers.
 - **SSR**: SSR (Server-Side Rendering): Leveraging SSR in Next.js improved the performance and SEO of the application by rendering pages on the server side, reducing load times and enhancing user experience.
 
-### Trade-offs
-
-- **Local vs Remote Data Storage**: This project would have been a lot easier if I stuck with client storage. I had to include the complexity of building an API with NextJS server actions, I feel it was worth it for the SSR as I have mentioned a few times already, since the server does not have access to client side storage. 
-- **Paystack Integration**: While not required by the assessment, integrating Paystack provided a more complete e-commerce experience and alowwed me to complete the product purchace flow of a user. However, this added some intricacies to the app and required handling more external dependencies.
 
 ## How I Handled SEO
 
