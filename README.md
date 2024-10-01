@@ -35,12 +35,7 @@ Topmart is split into two primary components:
 I built an API alongside the Admin dashboard using NextJs. The persistence layer is a MongoDB database hosted with mongoDB atlas, my ORM of choice is Prisma. I built this NextJS storefront separately so I'd require the minimum env credentials if you were to set up locally. Just the public API endpoint and the Paystack test Key.
 
 ## Live Demo
-You can check out the storefront at [https://topmart.vercel.app](https://topmart.vercel.app) . <br /> If you would like to manage the products on the live store, check out the admin dashboard at [https://topmart-admin.vercel.app](https://topmart-admin.vercel.app) and sign in with these credentials:
-
-  - email: topman.portfolio@gmail.com
-  - password: #1@Password$
-
-  > These are the credentials to a demo account. when you make changes to the products there, they will immediately affect the storefront, 
+You can check out the storefront at [https://topmart.vercel.app](https://topmart.vercel.app) . 
 
 ![image](https://github.com/user-attachments/assets/307ab421-9a94-491d-8733-8047a11cd2be)
 
