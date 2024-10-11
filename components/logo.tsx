@@ -3,7 +3,7 @@ import React from 'react'
 
 const Logo = () => {
   return (
-   <Image height={36} width={36} src={'/topmart.svg'} alt='Logo' />
+   <Image height={40} width={40} src={'/logo.png'} alt="Earl's Bistro Logo" />
   )
 }
 

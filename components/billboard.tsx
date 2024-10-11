@@ -9,7 +9,7 @@ const Billboard: React.FC<BillboardProps> = ({ data }) => {
   return (
     <div className='p-4 sm:p-6 lg:p-8 rounded-xl overflow-hidden'>
         <div 
-            className='rounded-[1.6rem] relative aspect-square md:aspect-[2.4/1] overflow-hidden bg-cover border shadow-lg'
+            className='rounded-[1.6rem] relative aspect-square md:aspect-[2.4/1] overflow-clip bg-cover border-2  border-orange-500 shadow-lg'
             style={{ 
                 background: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${data?.imageUrl}) no-repeat center center / cover`,
                 backgroundSize: 'cover'

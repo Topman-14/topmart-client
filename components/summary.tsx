@@ -137,7 +137,7 @@ const Summary = () => {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button
-                            className={'w-full mt-6 flex items-center justify-center gap-2'}
+                            className={'w-full mt-6 flex items-center justify-center gap-2 bg-green-900'}
                             disabled={items.length === 0}
                             onClick={() => setShowCheckout(true)}
                         >
@@ -146,7 +146,7 @@ const Summary = () => {
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side='bottom'>
-                        We&apos;ll need your order details here
+                        {items.length > 0 ? `We'll need your order details here` : 'You have no items in your cart'}
                     </TooltipContent>
                 </Tooltip>
             }

@@ -25,7 +25,7 @@ const NavbarActions = () => {
         <TooltipTrigger asChild>
           <Button 
             onClick={() => router.push('/cart')}
-            className='flex items-center rounded-full bg-black px-4 py-2'>
+            className='flex items-center rounded-full bg-green-700 px-4 py-2'>
               <ShoppingBag size={20} color='white'/>
               <span className='ml-2 text-sm font-medium'>
                   {cart.items.length}

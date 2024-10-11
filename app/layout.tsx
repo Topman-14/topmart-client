@@ -6,28 +6,28 @@ import Navbar from "@/components/navbar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Providers from "@/providers";
 
-
+const liveUrl = `https://earlsbistro.vercel.app/`;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://topmart.vercel.app/'),
-  title: "Topmart Store",
+  metadataBase: new URL(`${liveUrl}`),
+  title: "Earl's Bistro",
   description: "Your one-stop online store",
-  keywords: "online, store, shopping, electronics, fashion, home, goods, Topmart, yaba, mandilas, lagos, thrift, iphone, lambo",
+  keywords: "online, store, shopping, electronics, fashion, home, goods, Earl's Bistro, yaba, mandilas, lagos, thrift, iphone, lambo",
   openGraph: {
-    title: 'Topmart Store',
+    title: `Earl's Bistro`,
     description: 'Your one-stop online store',
-    url: 'https://topmart.vercel.app/',
-    siteName: 'Topmart Store',
+    url: `${liveUrl}`,
+    siteName: `Earl's Bistro`,
     images: [
       {
-        url: 'https://topmart.vercel.app/opengraph-image.png', 
+        url: `${liveUrl}opengraph-image.png`, 
         width: 800,
         height: 600,
       },
       {
-        url: 'https://topmart.vercel.app/twitter-image.png',
+        url: `${liveUrl}twitter-image.png`,
         width: 1800,
         height: 1600,
         alt: 'Twitter Image',
@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} bg-[#fcece2c5]`}>
         <Providers>
           <ScrollArea className='h-screen'> 
             <Navbar />
