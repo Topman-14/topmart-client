@@ -38,18 +38,18 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
   
     if (!billboard) {
       return {
-        title: `Earl's Bistro - Categories`,
-        description: `Explore various categories of products on Earl's Bistro.`,
+        title: 'Topmart Store - Categories',
+        description: 'Explore various categories of products on Topmart Store.',
       };
     }
   
     return {
-      title: `${billboard.label} - Earl's Bistro`,
-      description: `Discover the ${billboard.label} from Earl's Bistro. Explore a wide range of options in various.`,
+      title: `${billboard.label} Products - Topmart Store`,
+      description: `Discover the best products in the ${billboard.label} category. Explore a wide range of options in various colors and sizes.`,
       keywords: `${category?.name ?? "all categories"}, ${billboard.label}, online, shopping, ${colorId ? colors?.find(color => color.id === colorId)?.name : 'all colors'}, ${sizeId ? sizes?.find(size => size.id === sizeId)?.name : 'all sizes'}`,
       openGraph: {
-        title: `${billboard.label} - Earl's Bistro`,
-        description: `Discover the best ${billboard.label} at Earl's Bistro.`,
+        title: `${billboard.label} - Topmart Store`,
+        description: `Discover the best products in ${billboard.label} at Topmart Store.`,
         url: `https://topmart.vercel.app/categories/${billboardId}?categoryId=${categoryId}&colorId=${colorId}&sizeId=${sizeId}`,
         images: [
           {
@@ -91,7 +91,7 @@ const CategoryPage:FC<CategoryPageProps> = async ({
     }
 
   return (
-    <div className="bg-[#f6f0ea]">
+    <div className="bg-white">
         <Container>
             <Billboard data={billboard} />
             <div className="px-4 sm:px-6 lg:px-8 pb-24">

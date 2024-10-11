@@ -19,18 +19,18 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
     if (!product) {
       return {
-        title: `Product not found - Earl's Bistro`,
-        description: `The product you are looking for could not be found on Earl's Bistro.`,
+        title: 'Product not found - Topmart Store',
+        description: 'The product you are looking for could not be found on Topmart Store.',
       };
     }
   
     return {
-      title: `${product.name} - Earl's Bistro`,
-      description: `Buy ${product.name} on Earl's Bistro. ${product.description || "Discover high-quality products at the best prices."}`,
+      title: `${product.name} - Topmart Store`,
+      description: `Buy ${product.name} on Topmart Store. ${product.description || "Discover high-quality products at the best prices."}`,
       keywords: `${product.name}, ${product.category?.name || ''}, ${product.size?.name || ''}, ${product.color?.name || ''}, online shopping, nigeria, buy ${product.name}`,
       openGraph: {
-        title: `${product.name} - Earl's Bistro`,
-        description: `Buy ${product.name} on Earl's Bistro. ${product.description || "Discover high-quality products at the best prices."}`,
+        title: `${product.name} - Topmart Store`,
+        description: `Buy ${product.name} on Topmart Store. ${product.description || "Discover high-quality products at the best prices."}`,
         url: `https://topmart.vercel.app/product/${params.productId}`,
         images: product.images.map((image) => ({
           url: image.url,

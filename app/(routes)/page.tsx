@@ -14,7 +14,7 @@ const HomePage = async () => {
     <Container>
       <div className="space-y-10 pb-10">
         <Billboard data={{
-          label: 'Meat Pieeeeeeeeaiiaiieee',
+          label: 'Quality Finds, Unbeatable Prices',
           id: 'abdc1234',
           imageUrl: '/billboard.jpg'
         }}/>
