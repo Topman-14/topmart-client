@@ -2,7 +2,7 @@ import Container from '@/components/ui/container';
 import CartClient from './components/cart-client';
 import getProducts from '@/actions/get-products';
 
-export const revalidate = 600
+export const revalidate = 0
 
 const CartPage = async () => {
 

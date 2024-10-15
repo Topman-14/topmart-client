@@ -13,7 +13,7 @@ import getBillboard from "@/actions/get-billboard";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-export const revalidate = 600
+export const revalidate = 0;
 interface CategoryPageProps {
     params: {
         billboardId: string

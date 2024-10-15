@@ -7,7 +7,7 @@ import Container from '@/components/ui/container'
 import { Metadata } from 'next'
 import React, { FC } from 'react'
 
-export const revalidate = 600 //revalidate every 10mins
+export const revalidate = 0 //revalidate every 10mins
 interface ProductPageProps {
     params: {
         productId: string
